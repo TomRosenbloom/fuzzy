@@ -13,9 +13,15 @@ export default function App() {
   function addNameHandler() {
     saveNameText(enteredNameText);
   }
+
+    // Handle the "Clear" button press
+    const clearNameText = () => {
+      setEnteredNameText(''); // Clear the input field
+      saveNameText('');
+    };
  
   // next, add a text input for 'block types' building array/listing contents as per the course
-  // but first, get this onto github
+  // make the Clear button work
 
   return (
     <View style={styles.container}>
@@ -28,10 +34,11 @@ export default function App() {
           <TextInput 
             style={styles.nameInput} 
             placeholder='Type your name here'
+            value={enteredNameText}
             onChangeText={nameInputHandler} 
           />
           <Button title='Done' onPress={addNameHandler}/>
-          <Button title='Clear' />
+          <Button title='Clear' onPress={clearNameText} />
         </View>
         <View style={{flex: 1}}>
           <Text>Your name is... {savedName}</Text>
