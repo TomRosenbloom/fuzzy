@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
+
+import BlockTypeItem from './components/BlockTypeItem';
 
 export default function App() {
   const [enteredNameText, setEnteredNameText] = useState('');
@@ -63,22 +65,18 @@ export default function App() {
           />
           <Button title='Add' onPress={addBlockTypeHandler}/>
         </View>
-        <View style={styles.blockTypeList}>
 
+        <View style={styles.blockTypeList}>
           <FlatList 
             data={blockTypes} 
             renderItem={(itemData) => {
-              return (
-                <View style={styles.blockTypeItem}>
-                  <Text style={styles.blockTypeText}>{itemData.item.text}</Text>
-                </View>     
-              )     
-          }} 
-          keyExtractor={(item, index) => {
-            return item.id;
-          }}
-          alwaysBounceVertical={false} />
-
+              return <BlockTypeItem text={itemData.item.text} />;
+            }} 
+            keyExtractor={(item, index) => {
+              return item.id;
+            }}
+            alwaysBounceVertical={false} 
+          />
         </View>
 
         <View style={{flex: 1}}>
@@ -114,15 +112,6 @@ const styles = StyleSheet.create({
   },
   blockTypeList: {
     flex: 1
-  },
-  blockTypeItem: {
-    margin: 8,
-    padding: 8,
-    borderRadius: 4,
-    backgroundColor: '#5e0acc',
-  },
-  blockTypeText: {
-    color: 'white'
   },
   textInput: {
     borderWidth: 1,
