@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList } from 'react-native';
 
 export default function App() {
   const [enteredNameText, setEnteredNameText] = useState('');
@@ -26,7 +26,10 @@ export default function App() {
   }
 
   function addBlockTypeHandler() {
-    setBlockTypes(currentBlockTypes => [...currentBlockTypes, enteredBlockType]);
+    setBlockTypes(currentBlockTypes => [
+      ...currentBlockTypes, 
+      {text: enteredBlockType, id: Math.random().toString}
+    ]);
   }
  
   // next, add a text input for 'block types' building array/listing contents as per the course
@@ -61,14 +64,20 @@ export default function App() {
           <Button title='Add' onPress={addBlockTypeHandler}/>
         </View>
         <View style={styles.blockTypeList}>
-          <ScrollView>
 
-          {blockTypes.map((blockType) => 
-          <View style={styles.blockTypeItem} key={blockType}>
-            <Text style={styles.blockTypeText}>{blockType}</Text>
-          </View>
-          )}
-          </ScrollView>
+          <FlatList 
+            data={blockTypes} 
+            renderItem={(itemData) => {
+              return (
+                <View style={styles.blockTypeItem}>
+                  <Text style={styles.blockTypeText}>{itemData.item.text}</Text>
+                </View>     
+              )     
+          }} 
+          keyExtractor={(item, index) => {
+            return item.id;
+          }}
+          alwaysBounceVertical={false} />
 
         </View>
 
