@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
 
 import BlockTypeItem from './components/BlockTypeItem';
+import BlockTypeInput from './components/BlockTypeInput';
 
 export default function App() {
   const [enteredNameText, setEnteredNameText] = useState('');
   const [savedName, setSavedName] = useState('');
-  const [enteredBlockType, setBlockTypeText] = useState('');
   const [blockTypes, setBlockTypes] = useState([]);
 
   const nameInputHandler = (someText) => {
@@ -22,18 +22,13 @@ export default function App() {
     setSavedName(enteredNameText);
   }
 
-  function blockTypeInputHandler(enteredText) {
-    setBlockTypeText(enteredText);
-  }
-
-  function addBlockTypeHandler() {
+  function addBlockTypeHandler(enteredBlockType) {
     setBlockTypes(currentBlockTypes => [
       ...currentBlockTypes, 
       {text: enteredBlockType, id: Math.random().toString}
     ]);
   }
  
-  // next, add a text input for 'block types' building array/listing contents as per the course
 
   return (
     <View style={styles.container}>
@@ -56,14 +51,7 @@ export default function App() {
           {savedName !== '' && <Text style={styles.feedbackText}>{`Your name is... ${savedName}`}</Text>}
         </View>
 
-        <View style={styles.blockType}>
-          <TextInput
-            style={styles.textInput}
-            placeholder='Type name of block type'
-            onChangeText={blockTypeInputHandler}
-          />
-          <Button title='Add' onPress={addBlockTypeHandler}/>
-        </View>
+        <BlockTypeInput onAddBlockType={addBlockTypeHandler} />
 
         <View style={styles.blockTypeList}>
           <FlatList 
