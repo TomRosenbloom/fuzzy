@@ -9,17 +9,16 @@ export default function App() {
   const [enteredBlockType, setBlockTypeText] = useState('');
   const [blockTypes, setBlockTypes] = useState([]);
 
-  function nameInputHandler(enteredText) {
-    setEnteredNameText(enteredText);
-  }
+  const nameInputHandler = (someText) => {
+    setEnteredNameText(someText);
+  };
 
-  // Handle the "Clear" button press (for name - not generic at this point)
   const clearNameText = () => {
     setEnteredNameText(''); // Clear the input field
     setSavedName(''); // forget saved name
   };
 
-  function addNameHandler() {
+  const addNameHandler = () => {
     setSavedName(enteredNameText);
   }
 
