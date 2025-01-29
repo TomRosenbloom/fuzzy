@@ -5,7 +5,7 @@ import BlockTypeItem from './components/BlockTypeItem';
 
 export default function App() {
   const [enteredNameText, setEnteredNameText] = useState('');
-  const [savedName, saveNameText] = useState('');
+  const [savedName, setSavedName] = useState('');
   const [enteredBlockType, setBlockTypeText] = useState('');
   const [blockTypes, setBlockTypes] = useState([]);
 
@@ -16,11 +16,11 @@ export default function App() {
   // Handle the "Clear" button press (for name - not generic at this point)
   const clearNameText = () => {
     setEnteredNameText(''); // Clear the input field
-    saveNameText(''); // forget saved name
+    setSavedName(''); // forget saved name
   };
 
   function addNameHandler() {
-    saveNameText(enteredNameText);
+    setSavedName(enteredNameText);
   }
 
   function blockTypeInputHandler(enteredText) {
@@ -54,7 +54,7 @@ export default function App() {
           <Button title='Clear' onPress={clearNameText} />
         </View>
         <View style={{flex: .1}}>
-          <Text style={styles.feedbackText}>Your name is... {savedName}</Text>
+          {savedName !== '' && <Text style={styles.feedbackText}>{`Your name is... ${savedName}`}</Text>}
         </View>
 
         <View style={styles.blockType}>
